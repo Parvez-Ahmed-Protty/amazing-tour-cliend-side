@@ -3,34 +3,33 @@ import { Form } from "react-bootstrap";
 import "./CreateNewEvent.css";
 
 const CreateNewEvent = () => {
+  const [updateEvent, setUpdateEvent] = useState({
+    name: "",
+    img: "",
+    fee: "",
+    des: "",
+  });
 
-  const [updateEvent,setUpdateEvent] = useState({
-    name : '',
-    img:'',
-    fee:'',
-    des:''
-  })
+  const handleAll = (e) => {
+    const { name, value } = e.target;
+    setUpdateEvent({ ...updateEvent, [name]: value });
+  };
 
-  const handleAll = e => {
-    const {name,value} = e.target
-    setUpdateEvent({...updateEvent,[name]:value})
-  }
-
-  const handleEvent = e =>{
-    fetch('http://localhost:7000/card',{
-      method:'POST',
-      headers:{'content-type':'application/json'},
-      body:JSON.stringify(updateEvent)
-    }).then(res => res.json())
-    .then(data => {
-      if (data.insertedId) {
-        alert('Successfully added a new Event')
-      }
+  const handleEvent = (e) => {
+    fetch("https://shocking-web-80767.herokuapp.com/card", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(updateEvent),
     })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("Successfully added a new Event");
+        }
+      });
 
-    e.preventDefault()
-  }
-
+    e.preventDefault();
+  };
 
   return (
     <div>
@@ -40,19 +39,40 @@ const CreateNewEvent = () => {
           <Form onSubmit={handleEvent} className="w-50 mx-auto">
             <Form.Group className="mb-3 fw-bold" controlId="formGroupText">
               <Form.Label>Event Title</Form.Label>
-              <Form.Control onChange={handleAll} name="name" type="text" placeholder="Enter Neme" />
+              <Form.Control
+                onChange={handleAll}
+                name="name"
+                type="text"
+                placeholder="Enter Neme"
+              />
             </Form.Group>
             <Form.Group className="mb-3 fw-bold" controlId="formGroupText">
               <Form.Label>Image Ulr</Form.Label>
-              <Form.Control onChange={handleAll} name="img" type="text" placeholder="Set image url" />
+              <Form.Control
+                onChange={handleAll}
+                name="img"
+                type="text"
+                placeholder="Set image url"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupText">
               <Form.Label>Fee</Form.Label>
-              <Form.Control onChange={handleAll} name="fee" type="number" placeholder="Event Fee" />
+              <Form.Control
+                onChange={handleAll}
+                name="fee"
+                type="number"
+                placeholder="Event Fee"
+              />
             </Form.Group>
             <Form.Group className="mb-3 fw-bold" controlId="formGroupText">
               <Form.Label>Description</Form.Label>
-              <Form.Control onChange={handleAll} name="des" as="textarea" rows={3} placeholder="Event Description"/>
+              <Form.Control
+                onChange={handleAll}
+                name="des"
+                as="textarea"
+                rows={3}
+                placeholder="Event Description"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
               <Form.Control
