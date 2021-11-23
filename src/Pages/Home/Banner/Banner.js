@@ -3,6 +3,7 @@ import "./Banner.css";
 
 const Banner = () => {
   return (
+    // banner section
     <div className="banner-container d-flex align-items-center justify-content-center mb-5">
       <div>
         <h1 className="text-white">
